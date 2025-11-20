@@ -1,4 +1,4 @@
-package com.travelbooking.travelbookingsystem.model;
+package com.travelbooking.travelbookingsystem.model; // 确保包名正确
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -16,8 +16,13 @@ public class Hotel {
     private BigDecimal pricePerNight;
     private int availableRooms;
 
+    // --- 新增字段 ---
+    // columnDefinition 用于确保数据库中的默认值被 JPA 识别
+    @Column(columnDefinition = "INT DEFAULT 2")
+    private int maxGuestsPerRoom;
+
     // --- Getters 和 Setters ---
-    // (请使用 IntelliJ 快捷键生成)
+    // (请使用 IntelliJ 快捷键为所有字段生成或更新 Getters 和 Setters)
 
     public int getId() {
         return id;
@@ -57,5 +62,14 @@ public class Hotel {
 
     public void setAvailableRooms(int availableRooms) {
         this.availableRooms = availableRooms;
+    }
+
+    // 新字段的 Getter 和 Setter
+    public int getMaxGuestsPerRoom() {
+        return maxGuestsPerRoom;
+    }
+
+    public void setMaxGuestsPerRoom(int maxGuestsPerRoom) {
+        this.maxGuestsPerRoom = maxGuestsPerRoom;
     }
 }
