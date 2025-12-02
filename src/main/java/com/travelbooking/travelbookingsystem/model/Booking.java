@@ -18,46 +18,32 @@ public class Booking {
     @Column(nullable = false)
     private BigDecimal totalPrice;
 
+    // --- 新增字段 ---
+    private String description; // 存储详细信息 (例如 "Flight BA123...")
+
+    private String status;      // 存储状态 ("CONFIRMED", "CANCELLED")
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId", nullable = false) // "userId" 是 "Booking" 表中的外键列
+    @JoinColumn(name = "userId", nullable = false)
     private User user;
 
-    // 注意：一个更复杂的设计会使用 @OneToMany 来关联一个 "BookingItem" 实体，
-    // "BookingItem" 再去关联 Flight 或 Hotel。
-    // 但为了简单起见，我们可以在 EJB 逻辑中处理总价。
+    // --- Getters and Setters ---
 
-    // --- Getters 和 Setters ---
-    // (请使用 IntelliJ 快捷键生成)
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public int getId() {
-        return id;
-    }
+    public LocalDateTime getBookingDate() { return bookingDate; }
+    public void setBookingDate(LocalDateTime bookingDate) { this.bookingDate = bookingDate; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public BigDecimal getTotalPrice() { return totalPrice; }
+    public void setTotalPrice(BigDecimal totalPrice) { this.totalPrice = totalPrice; }
 
-    public LocalDateTime getBookingDate() {
-        return bookingDate;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public void setBookingDate(LocalDateTime bookingDate) {
-        this.bookingDate = bookingDate;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 }

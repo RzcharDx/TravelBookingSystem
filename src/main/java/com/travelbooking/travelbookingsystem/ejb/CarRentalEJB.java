@@ -9,13 +9,18 @@ import java.util.List;
 @Stateless
 public class CarRentalEJB {
 
-    @PersistenceContext(unitName = "travelDB") // 确保与 persistence.xml 匹配
+    @PersistenceContext(unitName = "travelDB")
     private EntityManager em;
 
-    // 根据取车地点搜索可用车辆
+    /**
+     * [修改] 模糊搜索租车
+     */
     public List<CarRental> searchCars(String pickupLocation) {
-        return em.createQuery("SELECT c FROM CarRental c WHERE c.pickupLocation = :location AND c.availableCars > 0", CarRental.class)
-                .setParameter("location", pickupLocation)
+        return em.createQuery(
+                        "SELECT c FROM CarRental c WHERE LOWER(c.pickupLocation) LIKE :location AND c.availableCars > 0",
+                        CarRental.class)
+                // 添加 % 通配符并转小写
+                .setParameter("location", "%" + pickupLocation.trim().toLowerCase() + "%")
                 .getResultList();
     }
 

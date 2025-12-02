@@ -49,7 +49,8 @@ public class SearchFlightServlet extends HttpServlet {
         } else {
             searchError = "Please provide both origin and destination.";
         }
-
+        List<String> airlineList = flightEJB.getDistinctAirlines();
+        request.setAttribute("airlineList", airlineList);
         // 将所有相关数据放入请求属性
         request.setAttribute("origin", origin); // 将原始搜索参数也传回JSP
         request.setAttribute("destination", destination);
